@@ -5,7 +5,7 @@ import { MultipickTextfieldProps } from "../../types/@types";
 
 const MultipickTextfield = (props: MultipickTextfieldProps) => {
   const { setData } = props;
-  const [values, setValues] = useState([""]);
+  const [values, setValues] = useState([] as string[]);
   const [currValue, setCurrValue] = useState("");
 
   const handleKeyUp = (e: any) => {
@@ -30,27 +30,27 @@ const MultipickTextfield = (props: MultipickTextfieldProps) => {
 
   return (
     <div className="root">
-        <FormControl className="formControlRoot">
-          <TextField
-            variant="outlined"
-            label="Guests User ID"
-            placeholder="Enter Guests User ID"
-            value={currValue}
-            onChange={handleChange}
-            onKeyDown={handleKeyUp}
-            size="small"
-            className="textfield"
-          />
-          <div className="container">
-            {values.map((item, index) => (
-              <Chip
-                size="small"
-                onDelete={() => handleDelete(item, index)}
-                label={item}
-              />
-            ))}
-          </div>
-        </FormControl>
+      <FormControl className="formControlRoot">
+        <TextField
+          variant="outlined"
+          label="Guests User ID"
+          placeholder="Enter Guests User ID"
+          value={currValue}
+          onChange={handleChange}
+          onKeyDown={handleKeyUp}
+          size="small"
+          className="textfield"
+        />
+        <div className="container">
+          {values.map((item, index) => (
+            <Chip
+              size="small"
+              onDelete={() => handleDelete(item, index)}
+              label={item}
+            />
+          ))}
+        </div>
+      </FormControl>
     </div>
   );
 };

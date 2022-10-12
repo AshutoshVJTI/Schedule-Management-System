@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import TextField from "@mui/material/TextField";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -10,9 +10,12 @@ const DatePicker = (props: DatepickerProps) => {
   const { setDate } = props;
   const [value, setValue] = useState<Dayjs | null>(dayjs(dayjs()));
 
+  useEffect(() => {
+    setDate(dayjs(value).format("YYYY-MM-DD"));
+  }, [setDate, value])
+
   const handleChange = (newValue: Dayjs | null) => {
     setValue(newValue);
-    setDate(dayjs(value).format("YYYY-MM-DD"));
   };
 
   return (

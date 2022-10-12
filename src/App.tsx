@@ -8,14 +8,14 @@ import MeetingPage from "./pages/Meeting";
 
 function App() {
   return (
-    <div className="App">
+      <div className="App">
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="user" element={<UserPage />} />
           <Route path="rooms" element={<RoomsPage />} />
           <Route path="meeting" element={<MeetingPage />} />
         </Routes>
-    </div>
+      </div>
   );
 }
 
