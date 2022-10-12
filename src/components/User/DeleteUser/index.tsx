@@ -1,19 +1,29 @@
-import React from 'react'
-import UserModel from '../../../models/user/index';
-import {useState} from 'react';
-import { Button, TextField } from '@mui/material';
+import React from "react";
+import UserModel from "../../../models/user/index";
+import { useState } from "react";
+import { Button, TextField } from "@mui/material";
 
 const DeleteUser = () => {
-    const [userId, setUserId] = useState<string>("");
-    const handleSubmit = async () => {
-        await UserModel.deleteUser(userId);
-    }
+  const [userId, setUserId] = useState<string>("");
+  const handleSubmit = async () => {
+    await UserModel.deleteUser(userId);
+  };
   return (
-    <div>
-        <TextField label="User ID" placeholder='Enter User ID' onChange={(e) => setUserId(e.target.value)} />
-        <Button variant="contained" onClick={handleSubmit}>Delete User</Button>
+    <div className="root">
+      <div className="form-container">
+      <TextField
+        label="User ID"
+        placeholder="Enter User ID"
+        className="textfield"
+        size="small"
+        onChange={(e) => setUserId(e.target.value)}
+      />
+      <Button variant="contained" className="button" onClick={handleSubmit}>
+        Delete User
+      </Button>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default DeleteUser
+export default DeleteUser;

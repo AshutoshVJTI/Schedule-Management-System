@@ -6,7 +6,7 @@ import ViewUsers from "../../components/User/ViewUsers";
 
 const UserPage = () => {
   return (
-    <div>
+    <div className="root">
       <RegisterUser />
       <ViewUsers />
       <UpdateUser />

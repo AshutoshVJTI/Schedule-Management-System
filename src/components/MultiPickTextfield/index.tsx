@@ -1,9 +1,11 @@
 import { Chip, FormControl, TextField } from "@mui/material";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import "./multipicktextfield.css";
+import { MultipickTextfieldProps } from "../../types/@types";
 
-const MultipickTextfield = () => {
-  const [values, setValues] = useState(["test"]);
+const MultipickTextfield = (props: MultipickTextfieldProps) => {
+  const { setData } = props;
+  const [values, setValues] = useState([""]);
   const [currValue, setCurrValue] = useState("");
 
   const handleKeyUp = (e: any) => {
@@ -13,37 +15,42 @@ const MultipickTextfield = () => {
     }
   };
 
-  const handleChange = (e: any) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setCurrValue(e.target.value);
+    setData(values);
   };
 
-  const handleDelete = (item: any, index: any) => {
+  const handleDelete = (item: string, index: number) => {
     let arr = [...values];
     arr.splice(index, 1);
     setValues(arr);
   };
 
   return (
-    <div className="App">
-      <FormControl className="formControlRoot">
-        <div className="container">
-          {values.map((item, index) => (
-            <Chip
-              size="small"
-              onDelete={() => handleDelete(item, index)}
-              label={item}
-            />
-          ))}
-        </div>
-        <TextField
-          variant="outlined"
-          label="Guests User ID"
-          placeholder="Enter Guests User ID"
-          value={currValue}
-          onChange={handleChange}
-          onKeyDown={handleKeyUp}
-        />
-      </FormControl>
+    <div className="root">
+        <FormControl className="formControlRoot">
+          <TextField
+            variant="outlined"
+            label="Guests User ID"
+            placeholder="Enter Guests User ID"
+            value={currValue}
+            onChange={handleChange}
+            onKeyDown={handleKeyUp}
+            size="small"
+            className="textfield"
+          />
+          <div className="container">
+            {values.map((item, index) => (
+              <Chip
+                size="small"
+                onDelete={() => handleDelete(item, index)}
+                label={item}
+              />
+            ))}
+          </div>
+        </FormControl>
     </div>
   );
 };

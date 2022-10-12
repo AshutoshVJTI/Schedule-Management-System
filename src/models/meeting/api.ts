@@ -1,5 +1,5 @@
 import instance from "../../utils/axios";
-import { CreateMeetingDataProps } from '../../types/@types';
+import { CreateMeetingDataProps } from "../../types/@types";
 
 export function createMeeting(
   hostUserId: string,
@@ -17,6 +17,30 @@ export function createMeeting(
     },
     data: {
       ...data,
+    },
+  });
+}
+
+export function getMeetingsUser(userId: string, user: string, roomId: string) {
+  return instance.request({
+    url: `/api/v1/schedule/get-meetings/user`,
+    method: "GET",
+    params: {
+      userId: userId,
+      user: user,
+      roomId: roomId,
+    },
+  });
+}
+
+export function getMeetingsRoom(userId: string, user: string, roomId: string) {
+  return instance.request({
+    url: `/api/v1/schedule/get-meetings/room`,
+    method: "GET",
+    params: {
+      userId: userId,
+      user: user,
+      roomId: roomId,
     },
   });
 }

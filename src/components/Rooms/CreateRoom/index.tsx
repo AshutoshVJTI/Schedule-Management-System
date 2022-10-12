@@ -17,25 +17,31 @@ const CreateRoom = () => {
     );
   };
   return (
-    <div>
-      <TextField
-        label="Room ID"
-        placeholder="Enter Room ID"
-        onChange={(e) =>
-          setData({ roomId: e.target.value, roomName: data.roomName })
-        }
-      />
-      <TextField
-        label="Room Name"
-        placeholder="Enter Room Name"
-        onChange={(e) =>
-          setData({ roomId: data.roomId, roomName: e.target.value })
-        }
-      />
-      <Button variant="contained" onClick={handleSubmit}>
-        Create Room
-      </Button>
-      <SnackbarWrapper error={error} />
+    <div className="root">
+      <div className="form-container">
+        <TextField
+          label="Room ID"
+          placeholder="Enter Room ID"
+          size="small"
+          className="textfield"
+          onChange={(e) =>
+            setData({ roomId: e.target.value, roomName: data.roomName })
+          }
+        />
+        <TextField
+          label="Room Name"
+          placeholder="Enter Room Name"
+          size="small"
+          className="textfield"
+          onChange={(e) =>
+            setData({ roomId: data.roomId, roomName: e.target.value })
+          }
+        />
+        <Button variant="contained" className="button" onClick={handleSubmit}>
+          Create Room
+        </Button>
+        <SnackbarWrapper error={error} />
+      </div>
     </div>
   );
 };

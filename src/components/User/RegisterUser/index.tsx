@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import UserModel from "../../../models/user";
 import { User } from "../../../types/@types";
 import SnackbarWrapper from "../../SnackbarWrapper";
-import "./registeruser.css";
 
 const RegisterUser = () => {
   const [user, setUser] = useState<User>({
@@ -69,7 +68,7 @@ const RegisterUser = () => {
             }
           />
         </div>
-        <Button variant="outlined" className="button" onClick={handleSubmit}>
+        <Button variant="contained" className="button" onClick={handleSubmit}>
           Register
         </Button>
       </div>

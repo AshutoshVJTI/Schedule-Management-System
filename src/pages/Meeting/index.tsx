@@ -1,10 +1,16 @@
-import React from 'react'
-import CreateMeeting from '../../components/Meeting/CreateMeeting'
+import React from "react";
+import CreateMeeting from "../../components/Meeting/CreateMeeting";
+import ViewUserMeetings from "../../components/Meeting/ViewUserMeetings";
+import ViewRoomMeetings from "../../components/Meeting/ViewRoomMeetings/index";
 
 const MeetingPage = () => {
   return (
-    <div><CreateMeeting /></div>
-  )
-}
+    <div className="root">
+      <CreateMeeting />
+      <ViewUserMeetings />
+      <ViewRoomMeetings />
+    </div>
+  );
+};
 
-export default MeetingPage
+export default MeetingPage;

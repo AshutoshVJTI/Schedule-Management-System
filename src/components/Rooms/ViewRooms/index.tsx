@@ -11,7 +11,7 @@ const ViewRooms = () => {
     setRooms(res.data.data);
   };
   return (
-    <div>
+    <div className="root">
       {rooms?.map((room) => {
         return (
           <div key={room._id}>
@@ -22,7 +22,7 @@ const ViewRooms = () => {
           </div>
         );
       })}
-      <Button onClick={handleSubmit}>View All Rooms</Button>
+      <Button className="button" variant="contained" onClick={handleSubmit}>View All Rooms</Button>
     </div>
   );
 };

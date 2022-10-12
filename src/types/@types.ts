@@ -31,4 +31,13 @@ export interface CreateRoomDataProps {
 
 export interface TimepickerProps {
   label: string;
+  setTime: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface DatepickerProps {
+  setDate: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface MultipickTextfieldProps {
+  setData: React.Dispatch<React.SetStateAction<string[]>>;
 }

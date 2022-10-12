@@ -11,10 +11,10 @@ const ViewUsers = () => {
     setUsers(res.data.data);
   };
   return (
-    <div>
+    <div className="root">
       {users?.map((user) => {
         return (
-          <div key={user._id}>
+          <div key={user._id} className="table">
             <h5>
               {user.userId}
               {user.userName}
@@ -23,7 +23,9 @@ const ViewUsers = () => {
           </div>
         );
       })}
-      <Button onClick={handleSubmit}>View All Users</Button>
+      <Button variant="contained" className="button" onClick={handleSubmit}>
+        View All Users
+      </Button>
     </div>
   );
 };

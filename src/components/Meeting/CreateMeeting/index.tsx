@@ -1,5 +1,5 @@
-import { Button } from "@mui/material";
-import React, { useState } from "react";
+import { Button, TextField } from "@mui/material";
+import React, { useState, useEffect } from "react";
 import MeetingModel from "../../../models/meeting";
 import { CreateMeetingDataProps } from "../../../types/@types";
 import DatePicker from "../../Datepicker";
@@ -15,66 +15,80 @@ const CreateMeeting = () => {
     startTime: "",
     endTime: "",
   });
-  const hostUserId = "123";
-  const hostUser = "123";
-  const hostRoomId = "123";
+  const [hostUserId, setHostUserId] = useState<string>("");
+  const [hostUserName, setHostUserName] = useState<string>("");
+  const [roomId, setRoomId] = useState<string>("");
+  const [startDate, setStartDate] = useState<string>("");
+  const [startTime, setStartTime] = useState<string>("");
+  const [endTime, setEndTime] = useState<string>("");
+  const [guestUsers, setGuestUsers] = useState<string[]>([]);
+  useEffect(() => {
+    setData({
+      ...data,
+      meetingDate: startDate,
+      startTime: startTime,
+      endTime: endTime,
+      guestUsers: guestUsers,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [endTime, startDate, startTime, guestUsers]);
   const handleSubmit = async () => {
-    await MeetingModel.createMeeting(hostUserId, hostUser, hostRoomId, data);
+    await MeetingModel.createMeeting(hostUserId, hostUserName, roomId, data);
   };
   return (
-    <div>
-      <DatePicker />
-      {/* <TextField
-        label="Date"
-        placeholder="Enter Date"
-        variant="outlined"
-        onChange={(e) =>
-          setData({
-            userId: data.userId,
-            roomId: data.roomId,
-            guestUsers: data.guestUsers,
-            meetingDate: e.target.value,
-            startTime: data.startTime,
-            endTime: data.endTime,
-          })
-        }
-      /> */}
-      <MultipickTextfield />
-      <Timepicker label={"Start Time"} />
-      <Timepicker label={"End Time"}/>
-      {/* <TextField
-        label="Start Time"
-        placeholder="Enter Start Time"
-        variant="outlined"
-        onChange={(e) =>
-          setData({
-            userId: data.userId,
-            roomId: data.roomId,
-            guestUsers: data.guestUsers,
-            meetingDate: data.meetingDate,
-            startTime: e.target.value,
-            endTime: data.endTime,
-          })
-        }
-      /> */}
-      {/* <TextField
-        label="End Time"
-        placeholder="Enter End Time"
-        variant="outlined"
-        onChange={(e) =>
-          setData({
-            userId: data.userId,
-            roomId: data.roomId,
-            guestUsers: data.guestUsers,
-            meetingDate: data.meetingDate,
-            startTime: data.startTime,
-            endTime: e.target.value,
-          })
-        }
-      /> */}
-      <Button variant="contained" onClick={handleSubmit}>
-        Create Meeting
-      </Button>
+    <div className="root">
+      <div className="form-container">
+        <TextField
+          label="Host User ID"
+          placeholder="Enter Host User ID"
+          className="textfield"
+          size="small"
+          onChange={(e) => {
+            setHostUserId(e.target.value);
+            setData({
+              ...data,
+              userId: e.target.value,
+            });
+          }}
+        />
+        <TextField
+          label="Host User Name"
+          placeholder="Enter Host User Name"
+          className="textfield"
+          size="small"
+          onChange={(e) => {
+            setHostUserName(e.target.value);
+          }}
+        />
+        <TextField
+          label="Room ID"
+          placeholder="Enter Room ID"
+          className="textfield"
+          size="small"
+          onChange={(e) => {
+            setRoomId(e.target.value);
+            setData({
+              ...data,
+              roomId: e.target.value,
+            });
+          }}
+        />
+        <div className="textfield">
+          <MultipickTextfield setData={setGuestUsers} />
+        </div>
+        <div className="textfield">
+          <DatePicker setDate={setStartDate} />
+        </div>
+        <div className="textfield">
+          <Timepicker label={"Start Time"} setTime={setStartTime} />
+        </div>
+        <div className="textfield">
+          <Timepicker label={"End Time"} setTime={setEndTime} />
+        </div>
+        <Button className="button" variant="contained" onClick={handleSubmit}>
+          Create Meeting
+        </Button>
+      </div>
     </div>
   );
 };
