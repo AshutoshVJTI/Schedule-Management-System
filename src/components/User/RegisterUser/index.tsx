@@ -13,9 +13,13 @@ const RegisterUser = () => {
   });
   const [error, setError] = useState<string>("");
   const handleSubmit = async () => {
-    await UserModel.addUser(user).catch((error) => {
-      setError(error.response.data.message);
-    });
+    await UserModel.addUser(user)
+      .then((res) => {
+        if (res.data.success === false) setError(res.data.message);
+      })
+      .catch((error) => {
+        setError(error.response.data.message);
+      });
   };
 
   return (

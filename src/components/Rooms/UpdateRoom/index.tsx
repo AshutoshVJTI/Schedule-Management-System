@@ -3,14 +3,20 @@ import RoomsModel from "../../../models/rooms";
 import { useState } from "react";
 import { Room } from "../../../types/@types";
 import { Button, TextField } from "@mui/material";
+import SnackbarWrapper from "../../SnackbarWrapper";
 
 const UpdateRoom = () => {
+  const [error, setError] = useState<string>("");
   const [data, setData] = useState<Room>({
     roomId: "",
     roomName: "",
   });
   const handleSubmit = async () => {
-    await RoomsModel.updateRoom(data);
+    await RoomsModel.updateRoom(data)
+      .then((res) => {
+        if (res.data.success === false) setError(res.data.message);
+      })
+      .catch((error) => setError(error.response.data.message));
   };
   return (
     <div className="root">
@@ -44,6 +50,7 @@ const UpdateRoom = () => {
           Update Room
         </Button>
       </div>
+      <SnackbarWrapper error={error} />
     </div>
   );
 };

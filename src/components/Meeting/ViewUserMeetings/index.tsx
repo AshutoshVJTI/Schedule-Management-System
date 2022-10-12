@@ -2,15 +2,21 @@ import React from "react";
 import MeetingModel from "../../../models/meeting/index";
 import { useState } from "react";
 import { Button, TextField } from "@mui/material";
+import SnackbarWrapper from "../../SnackbarWrapper";
 
 const ViewUserMeetings = () => {
+  const [error, setError] = useState<string>("");
   const [data, setData] = useState<any[]>([]);
   const [userId, setUserId] = useState<string>("");
   const [user, setUser] = useState<string>("");
   const [roomId, setRoomId] = useState<string>("");
   const handleSubmit = async () => {
-    const res = await MeetingModel.getMeetingsUser(userId, user, roomId);
-    setData(res.data.data);
+    await MeetingModel.getMeetingsUser(userId, user, roomId)
+      .then((res) => {
+        if (res.data.success === false) setError(res.data.message);
+        setData(res.data.data);
+      })
+      .catch((error) => setError(error.response.data.message));
   };
   return (
     <div className="root">
@@ -43,6 +49,7 @@ const ViewUserMeetings = () => {
           return <div></div>;
         })}
       </div>
+      <SnackbarWrapper error={error} />
     </div>
   );
 };

@@ -3,12 +3,18 @@ import UserModel from "../../../models/user";
 import { useState } from "react";
 import { User } from "../../../types/@types";
 import { Button } from "@mui/material";
+import SnackbarWrapper from "../../SnackbarWrapper";
 
 const ViewUsers = () => {
+  const [error, setError] = useState<string>("");
   const [users, setUsers] = useState<User[]>();
   const handleSubmit = async () => {
-    const res = await UserModel.getAllUsers();
-    setUsers(res.data.data);
+    await UserModel.getAllUsers()
+      .then((res) => {
+        if (res.data.success === false) setError(res.data.message);
+        setUsers(res.data.data);
+      })
+      .catch((error) => setError(error.response.data.message));
   };
   return (
     <div className="root">
@@ -26,6 +32,7 @@ const ViewUsers = () => {
       <Button variant="contained" className="button" onClick={handleSubmit}>
         View All Users
       </Button>
+      <SnackbarWrapper error={error} />
     </div>
   );
 };

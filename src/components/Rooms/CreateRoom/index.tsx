@@ -12,9 +12,11 @@ const CreateRoom = () => {
   });
   const [error, setError] = useState<string>("");
   const handleSubmit = async () => {
-    await RoomsModel.addRoom(data).catch((error) =>
-      setError(error.response.data.message)
-    );
+    await RoomsModel.addRoom(data)
+      .then((res) => {
+        if (res.data.success === false) setError(res.data.message);
+      })
+      .catch((error) => setError(error.response.data.message));
   };
   return (
     <div className="root">
@@ -40,8 +42,8 @@ const CreateRoom = () => {
         <Button variant="contained" className="button" onClick={handleSubmit}>
           Create Room
         </Button>
-        <SnackbarWrapper error={error} />
       </div>
+      <SnackbarWrapper error={error} />
     </div>
   );
 };

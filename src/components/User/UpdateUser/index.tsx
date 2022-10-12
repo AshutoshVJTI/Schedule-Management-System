@@ -3,15 +3,21 @@ import UserModel from "../../../models/user";
 import { useState } from "react";
 import { User } from "../../../types/@types";
 import { Button, TextField } from "@mui/material";
+import SnackbarWrapper from "../../SnackbarWrapper";
 
 const UpdateUser = () => {
+  const [error, setError] = useState<string>("");
   const [data, setData] = useState<User>({
     userId: "",
     userName: "",
     userEmail: "",
   });
   const handleSubmit = async () => {
-    await UserModel.updateUser(data);
+    await UserModel.updateUser(data)
+      .then((res) => {
+        if (res.data.success === false) setError(res.data.message);
+      })
+      .catch((error) => setError(error.response.data.message));
   };
   return (
     <div className="root">
@@ -59,6 +65,7 @@ const UpdateUser = () => {
           Update User
         </Button>
       </div>
+      <SnackbarWrapper error={error} />
     </div>
   );
 };

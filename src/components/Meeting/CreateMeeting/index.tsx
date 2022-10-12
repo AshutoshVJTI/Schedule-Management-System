@@ -4,9 +4,11 @@ import MeetingModel from "../../../models/meeting";
 import { CreateMeetingDataProps } from "../../../types/@types";
 import DatePicker from "../../Datepicker";
 import MultipickTextfield from "../../MultiPickTextfield";
+import SnackbarWrapper from "../../SnackbarWrapper";
 import Timepicker from "../../Timepicker";
 
 const CreateMeeting = () => {
+  const [error, setError] = useState<string>("");
   const [data, setData] = useState<CreateMeetingDataProps>({
     userId: "",
     roomId: "",
@@ -33,7 +35,11 @@ const CreateMeeting = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endTime, startDate, startTime, guestUsers]);
   const handleSubmit = async () => {
-    await MeetingModel.createMeeting(hostUserId, hostUserName, roomId, data);
+    await MeetingModel.createMeeting(hostUserId, hostUserName, roomId, data)
+      .then((res) => {
+        if (res.data.success === false) setError(res.data.message);
+      })
+      .catch((error) => setError(error.response.data.message));
   };
   return (
     <div className="root">
@@ -89,6 +95,7 @@ const CreateMeeting = () => {
           Create Meeting
         </Button>
       </div>
+      <SnackbarWrapper error={error} />
     </div>
   );
 };

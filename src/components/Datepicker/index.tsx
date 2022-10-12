@@ -22,7 +22,9 @@ const DatePicker = (props: DatepickerProps) => {
         inputFormat="DD/MM/YYYY"
         value={value}
         onChange={handleChange}
-        renderInput={(params) => <TextField {...params} />}
+        renderInput={(params) => (
+          <TextField className="textfield" size="small" {...params} />
+        )}
       />
     </LocalizationProvider>
   );
