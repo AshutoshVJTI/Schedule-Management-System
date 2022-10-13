@@ -1,7 +1,8 @@
 import { Button, TextField } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import MeetingModel from "../../../models/meeting";
-import { CreateMeetingDataProps } from "../../../types/@types";
+import UserModel from "../../../models/user";
+import { CreateMeetingDataProps, User } from "../../../types/@types";
 import DatePicker from "../../Datepicker";
 import MultipickTextfield from "../../MultiPickTextfield";
 import SnackbarWrapper from "../../SnackbarWrapper";
@@ -17,6 +18,7 @@ const CreateMeeting = () => {
     startTime: "",
     endTime: "",
   });
+  const [users, setUsers] = useState<string[]>([]);
   const [hostUserId, setHostUserId] = useState<string>("");
   const [hostUserName, setHostUserName] = useState<string>("");
   const [roomId, setRoomId] = useState<string>("");
@@ -34,6 +36,11 @@ const CreateMeeting = () => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endTime, startDate, startTime, guestUsers]);
+  useEffect(() => {
+    UserModel.getAllUsers()
+      .then((res) => setUsers(res.data.data.map((user: User) => user.userId)))
+      .catch((error) => setError(error.response.data.message));
+  }, []);
   const handleSubmit = async () => {
     await MeetingModel.createMeeting(hostUserId, hostUserName, roomId, data)
       .then((res) => {
@@ -80,7 +87,7 @@ const CreateMeeting = () => {
           }}
         />
         <div className="textfield">
-          <MultipickTextfield setData={setGuestUsers} />
+          <MultipickTextfield setData={setGuestUsers} options={users} />
         </div>
         <div className="textfield">
           <DatePicker setDate={setStartDate} />

@@ -1,56 +1,42 @@
-import { Chip, FormControl, TextField } from "@mui/material";
-import React, { useState } from "react";
-import "./multipicktextfield.css";
+import { Autocomplete, TextField } from "@mui/material";
+import React, { useState, useEffect } from "react";
 import { MultipickTextfieldProps } from "../../types/@types";
 
 const MultipickTextfield = (props: MultipickTextfieldProps) => {
-  const { setData } = props;
+  const { setData, options } = props;
   const [values, setValues] = useState([] as string[]);
-  const [currValue, setCurrValue] = useState("");
-
-  const handleKeyUp = (e: any) => {
-    if (e.keyCode === 13) {
-      setValues((oldState) => [...oldState, e.target.value]);
-      setCurrValue("");
-    }
-  };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.SyntheticEvent<Element, Event>,
+    newVal: string[]
   ) => {
-    setCurrValue(e.target.value);
-    setData(values);
+    setValues(newVal);
   };
 
-  const handleDelete = (item: string, index: number) => {
-    let arr = [...values];
-    arr.splice(index, 1);
-    setValues(arr);
-  };
+  useEffect(() => {
+    setData(values);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values]);
 
   return (
     <div className="root">
-      <FormControl className="formControlRoot">
-        <TextField
-          variant="outlined"
-          label="Guests User ID"
-          placeholder="Enter Guests User ID"
-          value={currValue}
-          onChange={handleChange}
-          onKeyDown={handleKeyUp}
-          size="small"
-          className="textfield"
-        />
-        <div className="container">
-          {values.map((item, index) => (
-            <Chip
-              size="small"
-              onDelete={() => handleDelete(item, index)}
-              label={item}
-            />
-          ))}
-        </div>
-      </FormControl>
+      <Autocomplete
+        multiple
+        freeSolo
+        disablePortal
+        options={options}
+        onChange={handleChange}
+        className="textfield"
+        size="small"
+        renderInput={(params) => (
+          <TextField
+            variant="outlined"
+            label="Guests User ID"
+            placeholder="Enter Guests User ID"
+            {...params}
+          />
+        )}
+      />
     </div>
   );
 };

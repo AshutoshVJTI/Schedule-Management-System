@@ -40,4 +40,18 @@ export interface DatepickerProps {
 
 export interface MultipickTextfieldProps {
   setData: React.Dispatch<React.SetStateAction<string[]>>;
+  options: string[];
+}
+
+export interface MeetingRoom {
+  createdAt: string;
+  endTime: string;
+  guestUsers: string[];
+  hostUserId: string;
+  meetingDate: string;
+  roomId: string;
+  startTime: string;
+  updatedAt: string;
+  __v: number;
+  _id: string;
 }
