@@ -24,6 +24,8 @@ const ViewUserMeetings = () => {
   const [roomId, setRoomId] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
   const handleSubmit = async () => {
+    if (userId === "")
+      return setError("Please enter User ID");
     await MeetingModel.getMeetingsUser(userId, user, roomId)
       .then((res) => {
         if (res.data.success === false) setError(res.data.message);
@@ -36,10 +38,17 @@ const ViewUserMeetings = () => {
     <div className="root">
       <div className="form-container">
         <TextField
+          required
           label="User ID"
           placeholder="Enter User ID"
           size="small"
           className="textfield"
+          sx={{
+            "& fieldset": { border: "none" },
+            "& label.Mui-focused": {
+              color: "white",
+            },
+          }}
           onChange={(e) => setUserId(e.target.value)}
         />
         <TextField
@@ -47,6 +56,12 @@ const ViewUserMeetings = () => {
           placeholder="Enter User Name"
           size="small"
           className="textfield"
+          sx={{
+            "& fieldset": { border: "none" },
+            "& label.Mui-focused": {
+              color: "white",
+            },
+          }}
           onChange={(e) => setUser(e.target.value)}
         />
         <TextField
@@ -54,9 +69,15 @@ const ViewUserMeetings = () => {
           placeholder="Enter Room ID"
           size="small"
           className="textfield"
+          sx={{
+            "& fieldset": { border: "none" },
+            "& label.Mui-focused": {
+              color: "white",
+            },
+          }}
           onChange={(e) => setRoomId(e.target.value)}
         />
-        <Button variant="contained" className="button" onClick={handleSubmit}>
+        <Button variant="text" className="button" onClick={handleSubmit}>
           View Rooms for User
         </Button>
         {open && data.length > 0 && (

@@ -12,6 +12,8 @@ const UpdateRoom = () => {
     roomName: "",
   });
   const handleSubmit = async () => {
+    if (Object.values(data).every((v) => v === ""))
+      return setError("Please enter all the values");
     await RoomsModel.updateRoom(data)
       .then((res) => {
         if (res.data.success === false) setError(res.data.message);
@@ -20,13 +22,18 @@ const UpdateRoom = () => {
   };
   return (
     <div className="root">
-      \
       <div className="form-container">
         <TextField
           label="Room ID"
           placeholder="Enter Room ID"
           size="small"
           className="textfield"
+          sx={{
+            "& fieldset": { border: "none" },
+            "& label.Mui-focused": {
+              color: "white",
+            },
+          }}
           onChange={(e) =>
             setData({
               roomId: e.target.value,
@@ -35,10 +42,17 @@ const UpdateRoom = () => {
           }
         />
         <TextField
+          required
           label="Room Name"
           placeholder="Enter Room Name"
           size="small"
           className="textfield"
+          sx={{
+            "& fieldset": { border: "none" },
+            "& label.Mui-focused": {
+              color: "white",
+            },
+          }}
           onChange={(e) =>
             setData({
               roomId: data.roomId,
@@ -46,7 +60,7 @@ const UpdateRoom = () => {
             })
           }
         />
-        <Button variant="contained" className="button" onClick={handleSubmit}>
+        <Button variant="text" className="button" onClick={handleSubmit}>
           Update Room
         </Button>
       </div>

@@ -1,24 +1,12 @@
-import { Button } from '@mui/material'
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import Navbar from "../../components/Navbar";
 
 const Landing = () => {
   return (
     <div>
-      <nav
-        style={{
-          borderBottom: "solid 1px",
-          paddingBottom: "1rem",
-          display: "flex",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <Link to="/user"><Button variant="contained">User</Button></Link>
-        <Link to="/rooms"><Button variant="contained">Rooms</Button></Link>
-        <Link to="/meeting"><Button variant="contained">Meeting</Button></Link>
-      </nav>
+      <Navbar />
     </div>
-  )
-}
+  );
+};
 
-export default Landing
+export default Landing;

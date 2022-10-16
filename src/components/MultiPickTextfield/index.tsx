@@ -19,20 +19,25 @@ const MultipickTextfield = (props: MultipickTextfieldProps) => {
   }, [values]);
 
   return (
-    <div className="root">
+    <div>
       <Autocomplete
         multiple
-        freeSolo
         disablePortal
         options={options}
         onChange={handleChange}
-        className="textfield"
         size="small"
         renderInput={(params) => (
           <TextField
             variant="outlined"
             label="Guests User ID"
             placeholder="Enter Guests User ID"
+            className="textfield"
+            sx={{
+              "& fieldset": { border: "none" },
+              "& label.Mui-focused": {
+                color: "white",
+              },
+            }}
             {...params}
           />
         )}

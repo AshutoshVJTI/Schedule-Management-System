@@ -13,6 +13,8 @@ const RegisterUser = () => {
   });
   const [error, setError] = useState<string>("");
   const handleSubmit = async () => {
+    if (Object.values(user).every((v) => v === ""))
+      return setError("Please enter all the values")
     await UserModel.addUser(user)
       .then((res) => {
         if (res.data.success === false) setError(res.data.message);
@@ -33,6 +35,12 @@ const RegisterUser = () => {
             label="Username"
             size="small"
             className="textfield"
+            sx={{
+              "& fieldset": { border: "none" },
+              "& label.Mui-focused": {
+                color: "white",
+              },
+            }}
             onChange={(e) =>
               setUser({
                 userId: e.target.value,
@@ -48,6 +56,12 @@ const RegisterUser = () => {
             label="Name"
             size="small"
             className="textfield"
+            sx={{
+              "& fieldset": { border: "none" },
+              "& label.Mui-focused": {
+                color: "white",
+              },
+            }}
             onChange={(e) =>
               setUser({
                 userId: user.userId,
@@ -63,6 +77,12 @@ const RegisterUser = () => {
             label="Email"
             size="small"
             className="textfield"
+            sx={{
+              "& fieldset": { border: "none" },
+              "& label.Mui-focused": {
+                color: "white",
+              },
+            }}
             onChange={(e) =>
               setUser({
                 userId: user.userId,
@@ -72,7 +92,7 @@ const RegisterUser = () => {
             }
           />
         </div>
-        <Button variant="contained" className="button" onClick={handleSubmit}>
+        <Button variant="text" className="button" onClick={handleSubmit}>
           Register
         </Button>
       </div>

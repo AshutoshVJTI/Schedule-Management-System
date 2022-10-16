@@ -29,37 +29,39 @@ const ViewRooms = () => {
   };
   return (
     <div className="root">
-      {open && (
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <strong>Room ID</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Room Name</strong>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rooms?.map((room) => (
-                <TableRow
-                  key={room._id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell>{room.roomId}</TableCell>
-                  <TableCell>{room.roomName}</TableCell>
+      <div className="form-container">
+        {open && (
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    <strong>Room ID</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Room Name</strong>
+                  </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
-      <Button className="button" variant="contained" onClick={handleSubmit}>
-        View All Rooms
-      </Button>
-      <SnackbarWrapper error={error} />
+              </TableHead>
+              <TableBody>
+                {rooms?.map((room) => (
+                  <TableRow
+                    key={room._id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell>{room.roomId}</TableCell>
+                    <TableCell>{room.roomName}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
+        <Button className="button" variant="text" onClick={handleSubmit}>
+          View All Rooms
+        </Button>
+        <SnackbarWrapper error={error} />
+      </div>
     </div>
   );
 };

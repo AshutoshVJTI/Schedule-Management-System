@@ -1,14 +1,14 @@
 export interface User {
   _id?: string;
   userId: string;
-  userName: string;
-  userEmail: string;
+  userName?: string;
+  userEmail?: string;
 }
 
 export interface Room {
   _id?: string;
   roomId: string;
-  roomName: string;
+  roomName?: string;
 }
 
 export interface SnackbarWrapperProps {
@@ -18,7 +18,7 @@ export interface SnackbarWrapperProps {
 export interface CreateMeetingDataProps {
   userId: string;
   roomId: string;
-  guestUsers: string[];
+  guestUsers?: string[];
   meetingDate: string;
   startTime: string;
   endTime: string;
@@ -54,4 +54,8 @@ export interface MeetingRoom {
   updatedAt: string;
   __v: number;
   _id: string;
+}
+
+export interface ShowErrorProps {
+  error: string;
 }

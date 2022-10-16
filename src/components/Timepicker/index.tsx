@@ -25,7 +25,18 @@ const Timepicker = (props: TimepickerProps) => {
         onChange={handleChange}
         minutesStep={1}
         renderInput={(params) => (
-          <TextField className="textfield" size="small" {...params} />
+          <TextField
+            required
+            className="textfield"
+            sx={{
+              "& fieldset": { border: "none" },
+              "& label.Mui-focused": {
+                color: "white",
+              },
+            }}
+            size="small"
+            {...params}
+          />
         )}
       />
     </LocalizationProvider>

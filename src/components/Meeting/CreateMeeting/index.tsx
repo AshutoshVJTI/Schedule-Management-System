@@ -42,6 +42,8 @@ const CreateMeeting = () => {
       .catch((error) => setError(error.response.data.message));
   }, []);
   const handleSubmit = async () => {
+    if (Object.values(data).every((v) => v === ""))
+      return setError("Please enter all the values");
     await MeetingModel.createMeeting(hostUserId, hostUserName, roomId, data)
       .then((res) => {
         if (res.data.success === false) setError(res.data.message);
@@ -52,10 +54,17 @@ const CreateMeeting = () => {
     <div className="root">
       <div className="form-container">
         <TextField
+          required
           label="Host User ID"
           placeholder="Enter Host User ID"
           className="textfield"
           size="small"
+          sx={{
+            "& fieldset": { border: "none" },
+            "& label.Mui-focused": {
+              color: "white",
+            },
+          }}
           onChange={(e) => {
             setHostUserId(e.target.value);
             setData({
@@ -65,19 +74,33 @@ const CreateMeeting = () => {
           }}
         />
         <TextField
+          required
           label="Host User Name"
           placeholder="Enter Host User Name"
           className="textfield"
           size="small"
+          sx={{
+            "& fieldset": { border: "none" },
+            "& label.Mui-focused": {
+              color: "white",
+            },
+          }}
           onChange={(e) => {
             setHostUserName(e.target.value);
           }}
         />
         <TextField
+          required
           label="Room ID"
           placeholder="Enter Room ID"
           className="textfield"
           size="small"
+          sx={{
+            "& fieldset": { border: "none" },
+            "& label.Mui-focused": {
+              color: "white",
+            },
+          }}
           onChange={(e) => {
             setRoomId(e.target.value);
             setData({
@@ -98,7 +121,7 @@ const CreateMeeting = () => {
         <div className="textfield">
           <Timepicker label={"End Time"} setTime={setEndTime} />
         </div>
-        <Button className="button" variant="contained" onClick={handleSubmit}>
+        <Button className="button" variant="text" onClick={handleSubmit}>
           Create Meeting
         </Button>
       </div>

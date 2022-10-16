@@ -1,25 +1,35 @@
 import React from "react";
 import MeetingModel from "../../../models/meeting/index";
 import { useState } from "react";
-import { Button, TextField, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import {
+  Button,
+  TextField,
+  TableContainer,
+  Paper,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from "@mui/material";
 import SnackbarWrapper from "../../SnackbarWrapper";
-import dayjs from 'dayjs';
-import { MeetingRoom } from '../../../types/@types';
+import dayjs from "dayjs";
+import { MeetingRoom } from "../../../types/@types";
 
 const ViewRoomMeetings = () => {
   const [error, setError] = useState<string>("");
   const [data, setData] = useState<MeetingRoom[]>([]);
-  console.log(data)
   const [userId, setUserId] = useState<string>("");
   const [user, setUser] = useState<string>("");
   const [roomId, setRoomId] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
   const handleSubmit = async () => {
+    if (roomId === "") return setError("Please enter Room ID");
     await MeetingModel.getMeetingsRoom(userId, user, roomId)
       .then((res) => {
         if (res.data.success === false) setError(res.data.message);
         setData(res.data.data);
-        setOpen(true)
+        setOpen(true);
       })
       .catch((error) => setError(error.response.data.message));
   };
@@ -27,10 +37,17 @@ const ViewRoomMeetings = () => {
     <div className="root">
       <div className="form-container">
         <TextField
+          required
           label="User ID"
           placeholder="Enter User ID"
           size="small"
           className="textfield"
+          sx={{
+            "& fieldset": { border: "none" },
+            "& label.Mui-focused": {
+              color: "white",
+            },
+          }}
           onChange={(e) => setUserId(e.target.value)}
         />
         <TextField
@@ -38,16 +55,29 @@ const ViewRoomMeetings = () => {
           placeholder="Enter User Name"
           size="small"
           className="textfield"
+          sx={{
+            "& fieldset": { border: "none" },
+            "& label.Mui-focused": {
+              color: "white",
+            },
+          }}
           onChange={(e) => setUser(e.target.value)}
         />
         <TextField
+          required
           label="Room ID"
           placeholder="Enter Room ID"
           size="small"
           className="textfield"
+          sx={{
+            "& fieldset": { border: "none" },
+            "& label.Mui-focused": {
+              color: "white",
+            },
+          }}
           onChange={(e) => setRoomId(e.target.value)}
         />
-        <Button variant="contained" className="button" onClick={handleSubmit}>
+        <Button variant="text" className="button" onClick={handleSubmit}>
           View Meetings for Room
         </Button>
         {open && data.length > 0 && (
@@ -87,10 +117,8 @@ const ViewRoomMeetings = () => {
                       {dayjs(room.meetingDate).format("DD/MM/YYYY")}
                     </TableCell>
                     <TableCell>
-                      {room.guestUsers.map((guest) => (
-                        <ul>
-                          <li>{guest}</li>
-                        </ul>
+                      {room.guestUsers.map((guest, index) => (
+                        <div>{`${index}. ${guest}`}</div>
                       ))}
                     </TableCell>
                     <TableCell>

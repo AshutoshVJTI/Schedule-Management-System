@@ -12,7 +12,7 @@ const DatePicker = (props: DatepickerProps) => {
 
   useEffect(() => {
     setDate(dayjs(value).format("YYYY-MM-DD"));
-  }, [setDate, value])
+  }, [setDate, value]);
 
   const handleChange = (newValue: Dayjs | null) => {
     setValue(newValue);
@@ -26,7 +26,18 @@ const DatePicker = (props: DatepickerProps) => {
         value={value}
         onChange={handleChange}
         renderInput={(params) => (
-          <TextField className="textfield" size="small" {...params} />
+          <TextField
+            required
+            className="textfield"
+            sx={{
+              "& fieldset": { border: "none" },
+              "& label.Mui-focused": {
+                color: "white",
+              },
+            }}
+            size="small"
+            {...params}
+          />
         )}
       />
     </LocalizationProvider>

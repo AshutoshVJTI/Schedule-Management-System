@@ -1,0 +1,30 @@
+.navbar-root {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0px;
+}
+
+.navbar {
+  background-color: black;
+  border-radius: 30px;
+  width: fit-content;
+}
+
+.navbar li {
+  float: left;
+  list-style: none;
+  margin: 13px 30px;
+}
+
+.navbar ul {
+  overflow: auto;
+  padding-inline-start: 0px;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+}
+
+.navbar-button {
+  color: white !important;
+  border: none !important;
+  margin: 0.5rem 1rem !important;
+}

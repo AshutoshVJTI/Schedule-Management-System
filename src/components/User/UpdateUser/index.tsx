@@ -13,6 +13,8 @@ const UpdateUser = () => {
     userEmail: "",
   });
   const handleSubmit = async () => {
+    if (Object.values(data).every((v) => v === ""))
+      return setError("Please enter all the values");
     await UserModel.updateUser(data)
       .then((res) => {
         if (res.data.success === false) setError(res.data.message);
@@ -23,10 +25,17 @@ const UpdateUser = () => {
     <div className="root">
       <div className="form-container">
         <TextField
+          required
           label="User ID"
           placeholder="Enter User ID"
           className="textfield"
           size="small"
+          sx={{
+            "& fieldset": { border: "none" },
+            "& label.Mui-focused": {
+              color: "white",
+            },
+          }}
           onChange={(e) =>
             setData({
               userId: e.target.value,
@@ -40,6 +49,12 @@ const UpdateUser = () => {
           placeholder="Enter User Name"
           className="textfield"
           size="small"
+          sx={{
+            "& fieldset": { border: "none" },
+            "& label.Mui-focused": {
+              color: "white",
+            },
+          }}
           onChange={(e) =>
             setData({
               userId: data.userId,
@@ -53,6 +68,12 @@ const UpdateUser = () => {
           placeholder="Enter User Email"
           className="textfield"
           size="small"
+          sx={{
+            "& fieldset": { border: "none" },
+            "& label.Mui-focused": {
+              color: "white",
+            },
+          }}
           onChange={(e) =>
             setData({
               userId: data.userId,
@@ -61,7 +82,7 @@ const UpdateUser = () => {
             })
           }
         />
-        <Button variant="contained" onClick={handleSubmit} className="button">
+        <Button variant="text" onClick={handleSubmit} className="button">
           Update User
         </Button>
       </div>
