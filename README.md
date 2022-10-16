@@ -26,6 +26,6 @@ npm start
 
 ## Tech Stack
 
-- [MongoDB](https://www.mongodb.com)
-- [Express.js](https://expressjs.com)
-- [node.js](https://nodejs.org/en/)
+- [React.js](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Material UI](https://mui.com/)
